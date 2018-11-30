@@ -138,6 +138,11 @@ function showModal(userID) {
   if (userID < 0) userID = users.length - 1;
   else if (userID === users.length) userID = 0;
 
+  if (document.getElementById(userID).style.display === 'none') {
+    showModal(userID + 1);
+    return;
+  }
+
   modalContainer.setAttribute('data-userID', userID); // set custom attribute to user's id
   const modal = modalContainer.querySelector('div.modal-info-container');
   modal.querySelector('img').src = users[userID].picture.large;
