@@ -13,19 +13,22 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
     createAndAppendUsers(users) // add user cards to the page
   });
 
+// while fetching users create search and modal
 createSearch();
-createModal();
+createModal(); // modal is not displayed when created
 
 ////////////////////////////////////////////////////
 // HELPER FUNCTIONS /////
 ///////////////////////////////////////////////////
 
+// creates DOM element and add provided class to it
 function createElementWithClass(tag, className) {
   const newElement = document.createElement(tag);
   newElement.className = className;
   return newElement;
 }
 
+// creates search feature
 function createSearch() {
   const form = document.createElement('form');
   form.action = '#';
@@ -36,24 +39,25 @@ function createSearch() {
   input.id = 'search-input';
   input.placeholder = 'Search...';
   input.addEventListener('keyup', function() {
-    searchForUsers(this.value);
+    searchForUsers(this.value); // search for users with current input's value
   });
 
   const submit = createElementWithClass('input', 'search-submit');
   submit.type = 'submit';
-  submit.value = String.fromCodePoint(0x1F50D);
+  submit.value = String.fromCodePoint(0x1F50D); // get magniffying glass emoji from its unicode
   submit.id = 'search-submit';
 
   form.append(input);
   form.append(submit);
   form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    searchForUsers(this.querySelector('input').value);
+    e.preventDefault(); // don't submit form
+    searchForUsers(this.querySelector('input').value); // search for users with the input's value
   });
 
   document.body.insertBefore(form, gallery);
 }
 
+// searches and filters users whose name includes provided input value
 function searchForUsers(inputValue) {
   users.forEach((user, index) => {
     const cardStyle = document.getElementById('' + index).style;
@@ -74,18 +78,19 @@ function createModal() {
   const prevButton = createElementWithClass('button', 'modal-prev btn');
   prevButton.type = 'button';
   prevButton.id = 'modal-prev';
-  prevButton.textContent = String.fromCodePoint(0x25C0);
+  prevButton.textContent = String.fromCodePoint(0x25C0); // left arrow emoji
   const nextButton = createElementWithClass('button', 'modal-next btn');
   nextButton.type = 'button';
   nextButton.id = 'modal-next';
-  nextButton.textContent = String.fromCodePoint(0x25B6);
+  nextButton.textContent = String.fromCodePoint(0x25B6); // right arrow emoji
 
   btnContainer.append(prevButton);
   btnContainer.append(nextButton);
   btnContainer.addEventListener('click', e => {
+    // get user id from modal container's custom attribute 
     let currentUserID = parseInt(btnContainer.parentElement.getAttribute('data-userid'));
-    if (e.target.id === 'modal-prev') showModal(currentUserID - 1);
-    else showModal(currentUserID + 1);
+    if (e.target.id === 'modal-prev') showModal(currentUserID - 1); // show prev user
+    else if (e.target.id === 'modal-next') showModal(currentUserID + 1); // show nex user
 
   });
 
@@ -125,13 +130,15 @@ function createModal() {
   document.body.append(modalContainer);
 }
 
+// show modal and set correct info
 function showModal(userID) {
   userID = parseInt(userID);
 
+  // prevent errors when reaching the start or end of the users array
   if (userID < 0) userID = users.length - 1;
   else if (userID === users.length) userID = 0;
 
-  modalContainer.setAttribute('data-userID', userID);
+  modalContainer.setAttribute('data-userID', userID); // set custom attribute to user's id
   const modal = modalContainer.querySelector('div.modal-info-container');
   modal.querySelector('img').src = users[userID].picture.large;
   modal.querySelector('h3').textContent = `${users[userID].name.title}. 
@@ -146,10 +153,11 @@ function showModal(userID) {
   modal.parentElement.parentElement.style.display = '';
 }
 
+// creates cards for each user
 function createAndAppendUsers(users) {
   users.forEach((user, index) => {
     const card = createElementWithClass('div', 'card');
-    card.id = index;
+    card.id = index; // save user's id
 
     const imageContainer = createElementWithClass('div', 'card-img-container');
     const infoContainer = createElementWithClass('div', 'card-info-container');
@@ -182,6 +190,6 @@ function createAndAppendUsers(users) {
 
 function addEventListenerToCard(card) {
   card.addEventListener('click', function() {
-    showModal(this.id);
+    showModal(this.id); // each card has ID that matches user's index in the array
   });
 }
