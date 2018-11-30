@@ -2,7 +2,7 @@
    Public API Request
 ======================================== */
 
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto');
 
 * {
 	box-sizing: border-box;
@@ -14,7 +14,7 @@ html, body {
 }
 
 body {
-    font-family: "Nunito", sans-serif;
+    font-family: "Roboto", sans-serif;
     text-align: center;
     background: rgba(235, 235, 235, 0.9);
 }
@@ -75,6 +75,7 @@ header h1 {
     width: 100%;
     max-width: 1200px;
     margin: auto;
+    padding-top: 2em;
 }
   
 .card {
@@ -89,7 +90,7 @@ header h1 {
     padding: 10px;
     background: rgba(245, 245, 245, 0.9);
     border-radius: 0.25em;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    box-shadow: 0 0 4px darkgray;
     transition: .4s ease-out;
     overflow: hidden;
 }
@@ -105,7 +106,8 @@ header h1 {
 }
 
 .card-name {
-    margin: 20px auto 0;
+  font-family: 'Montserrat', sans-serif;
+  margin: 20px auto 0;
 }
 
 .card-text {
@@ -165,7 +167,8 @@ header h1 {
 }
 
 .modal-name {
-    margin-bottom: 5px;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 5px;
 }
 
 .modal-text {
@@ -249,7 +252,8 @@ header h1 {
 
     .card:hover {
         background: rgba(255, 255, 255, 1);
-        border: 1px solid rgba(50, 50, 50, 0.9);
+        transform: translate(0, -2px);
+        box-shadow: 0 4px 4px darkgray;
     }
 
     .card:hover .card-text {
