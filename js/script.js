@@ -3,6 +3,7 @@
 let users = [];
 let modalContainer = null;
 const gallery = document.getElementById('gallery');
+let modalNavAction = 'prev';
 
 // get 12 users with US nationality
 fetch('https://randomuser.me/api/?results=12&nat=us')
@@ -89,9 +90,13 @@ function createModal() {
   btnContainer.addEventListener('click', e => {
     // get user id from modal container's custom attribute 
     let currentUserID = parseInt(btnContainer.parentElement.getAttribute('data-userid'));
-    if (e.target.id === 'modal-prev') showModal(currentUserID - 1); // show prev user
-    else if (e.target.id === 'modal-next') showModal(currentUserID + 1); // show nex user
-
+    if (e.target.id === 'modal-prev') {
+      modalNavAction = 'prev';
+      showModal(currentUserID - 1); // show prev user
+    } else if (e.target.id === 'modal-next') { 
+      modalNavAction = 'next';
+      showModal(currentUserID + 1); // show nex user
+    }
   });
 
   const closeButton = createElementWithClass('button', 'modal-close-btn');
@@ -139,7 +144,9 @@ function showModal(userID) {
   else if (userID === users.length) userID = 0;
 
   if (document.getElementById(userID).style.display === 'none') {
-    showModal(userID + 1);
+    if (modalNavAction === 'prev') showModal(userID - 1);
+    else showModal(userID + 1);
+
     return;
   }
 
