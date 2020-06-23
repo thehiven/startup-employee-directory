@@ -1,5 +1,3 @@
-## Techdegree Project 5
-### Awesome startup employee directory
-This is a project for full-stack javascript developer program on Treehouse.
-  
-#### [DEMO](https://ozarkstudios.com/techdegree/techdegree-project-5/) 
+# Awesome startup employee directory
+Sturtup employee directory built using vanilla JavaScript.
+Freatures: Responsive Design, Interactive Search, User Cards and navigation.
